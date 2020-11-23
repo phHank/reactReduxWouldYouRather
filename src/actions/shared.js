@@ -1,13 +1,18 @@
 import { fetchUsers, fetchQuestions } from '../API'
-import { receiveUsers } from './users'
-import { receiveQuestions } from './questions' 
+
+export const RECEIVE_INITIAL_DATA = 'RECEIVE_INITIAL_DATA'
+
+const receiveData = (users, questions, authedUser = null) => ({
+    type: RECEIVE_INITIAL_DATA,
+    users, 
+    questions,
+    authedUser: authedUser
+})
 
 export const handleInitialData = () => dispatch => {    
-    fetchUsers().then(users => {
-        dispatch(receiveUsers(users))
-    })
-
-    fetchQuestions().then(questions => {
-        dispatch(receiveQuestions(questions))
-    })
+    Promise.all([fetchUsers(), fetchQuestions()])
+        .then(apiResults => {
+            const [users, questions] = apiResults
+            dispatch(receiveData(users, questions))
+        })
 }

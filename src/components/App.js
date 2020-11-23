@@ -1,6 +1,7 @@
-import React, {Component} from 'react'
+import {Component} from 'react'
 import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared'
+import Login from './Login'
 
 class App extends Component {  
   componentDidMount = () => {
@@ -10,13 +11,17 @@ class App extends Component {
   }
   
   render () {
-    const { users } = this.props
+    const { authedUser } = this.props
     return (
-      <ul>
-        {Object.keys(users).map(name => (
-          <li key={name}>{users[name].name}</li>
-        ))}
-      </ul>
+      <div>
+        {authedUser === null 
+          ? (
+        <div>
+          <h3>Please Login</h3>
+          <Login />
+        </div>)
+        : <Login />}
+      </div>
     )
   }
 }
