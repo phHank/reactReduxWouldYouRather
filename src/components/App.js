@@ -2,6 +2,7 @@ import {Component} from 'react'
 import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared'
 import Login from './Login'
+import Logout from './Logout'
 
 class App extends Component {  
   componentDidMount = () => {
@@ -20,7 +21,10 @@ class App extends Component {
           <h3>Please Login</h3>
           <Login />
         </div>)
-        : <Login />}
+        : <div>
+            <Login />
+            <Logout />
+          </div>}
       </div>
     )
   }

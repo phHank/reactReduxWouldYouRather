@@ -12,17 +12,14 @@ class Login extends Component {
     render() {
         const { users, authedUser } = this.props
         return (
-            <div className='dropdown show'>
-                <select onChange={this.handleSelect} defaultValue={authedUser === null 
-                        ? 'default'
-                        : authedUser} >
-                    <option className='dropdown-item' value='default' disabled>Choose Your Username...</option>
-                    {Object.keys(users).sort().map(user => (
-                    <option className='dropdown-item' key={user} value={user}>{users[user].id}</option>
-                    ))}
-                </select>
-            </div>
-
+            <select onChange={this.handleSelect} defaultValue={authedUser === null 
+                    ? 'default'
+                    : authedUser} >
+                <option className='dropdown-item' value='default' disabled>Choose Your Username...</option>
+                {Object.keys(users).sort().map(user => (
+                <option className='dropdown-item' key={user} value={user}>{users[user].id}</option>
+                ))}
+            </select>
         )
     }
 }
