@@ -16,7 +16,7 @@ class Login extends Component {
                     ? 'default'
                     : authedUser} >
                 <option className='dropdown-item' value='default' disabled>Choose Your Username...</option>
-                {Object.keys(users).sort().map(user => (
+                {Object.keys(users).sort().filter(user => authedUser ? user === authedUser : true).map(user => (
                 <option className='dropdown-item' key={user} value={user}>{users[user].id}</option>
                 ))}
             </select>

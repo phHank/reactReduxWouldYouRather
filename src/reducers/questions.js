@@ -1,5 +1,5 @@
-import { GET_QUESTIONS } from '../actions/questions'
 import { RECEIVE_INITIAL_DATA } from '../actions/shared'
+import { ANSWER_POLL } from '../actions/questions' 
 
 
 const questions = (state = {}, action) => {
@@ -8,6 +8,11 @@ const questions = (state = {}, action) => {
             return {
                 ...state,
                 ...action.questions
+            }
+        case ANSWER_POLL:
+            return {
+                ...state,
+                ...action.question
             }
         default:
             return state
