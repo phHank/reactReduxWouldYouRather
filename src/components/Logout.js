@@ -11,7 +11,7 @@ class Logout extends Component {
 
     render() {
         return (
-            <button className='btn btn-primary' onClick={this.handleLogout}>
+            <button className='btn btn-primary text-dark' onClick={this.handleLogout}>
                 Logout
             </button>
         )

@@ -104,7 +104,7 @@ class Poll extends Component {
                                 <button 
                                   type='submit' 
                                   className='btn btn-primary ml-5' 
-                                  disabled={this.state.voted}>Vote
+                                  disabled={this.state.voted || !this.state.vote}>Vote
                                 </button>
                             </form>
                         </div>

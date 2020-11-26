@@ -1,6 +1,7 @@
 import { Component } from 'react'
 import { connect } from 'react-redux'
 import { handleUserLogin } from '../actions/authedUser'
+import Logout from './Logout'
 
 class Login extends Component {
     handleSelect = event => {
@@ -12,14 +13,17 @@ class Login extends Component {
     render() {
         const { users, authedUser } = this.props
         return (
-            <select onChange={this.handleSelect} defaultValue={authedUser === null 
-                    ? 'default'
-                    : authedUser} >
-                <option className='dropdown-item' value='default' disabled>Choose Your Username...</option>
-                {Object.keys(users).sort().filter(user => authedUser ? user === authedUser : true).map(user => (
-                <option className='dropdown-item' key={user} value={user}>{users[user].id}</option>
-                ))}
-            </select>
+            <div className='float-right text-dark bg-light m-1 p-1 mr-5'>
+                <select onChange={this.handleSelect} defaultValue={authedUser === null 
+                        ? 'default'
+                        : authedUser} disabled={authedUser}>
+                    <option className='dropdown-item' value='default' disabled>Choose Your Username...</option>
+                    {Object.keys(users).sort().filter(user => authedUser ? user === authedUser : true).map(user => (
+                    <option className='dropdown-item' key={user} value={user}>{users[user].id}</option>
+                    ))}
+                </select>
+                {authedUser && <Logout />}
+            </div>
         )
     }
 }

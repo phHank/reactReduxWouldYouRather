@@ -30,22 +30,29 @@ class PollDisplay extends Component {
 
         return (
             <div>
-                <h2>{this.state.displaying} Polls:</h2>
-                <ul>
+                <div className='d-flex justify-content-center'>
+                    <button className='btn btn-light border border-primary ml-5 text-dark m-1' onClick={this.handleToggle}>
+                        <img 
+                          src={process.env.PUBLIC_URL + '/shuffle.png'}
+                          alt={`Switch to display ${this.state.displaying === 'Unanswered' ? 'Answered' : 'Unanswered'} questions`} 
+                          />
+                    </button>  
+                    <h2 >{this.state.displaying} Polls:</h2>
+                </div>
+                <ul className='d-flex justify-content-center mw-100'>
                     {sortedQuestions.map(question => (
-                        <li className='btn border border-primary' key={question.id}>
+                        <li className='btn border border-primary m-1' key={question.id}>
                             <h6 className='d-flex justify-content-center'>Would you rather...</h6>
                             <p>{question.optionOne.text}</p> 
                             <p className='text-muted'>or</p> 
                             <p>{question.optionTwo.text}</p>
-                            <small className='text-muted'>By: {question.author}</small>
+                            { question.author === authedUser 
+                              ? (<small className='text-muted'>By: &#128527; you</small>)
+                              : (<small className='text-muted'>By: {question.author}</small>)
+                            }
                         </li>
                     ))}
                 </ul>
-                    <button className='btn btn-primary' onClick={this.handleToggle}>Display Your {
-                    this.state.displaying === 'Unanswered'
-                        ? 'Answered' 
-                        : 'Unanswered'} Polls</button> 
             </div>
 
         )
