@@ -1,5 +1,6 @@
 import {Component} from 'react'
 import {connect} from 'react-redux'
+import {Redirect} from 'react-router-dom'
 import { handleAddQuestion} from '../actions/questions'
 
 class NewQuestion extends Component {
@@ -22,23 +23,27 @@ class NewQuestion extends Component {
 
     handleSubmit = event => {
         event.preventDefault()
-        const {authedUser, dispatch} = this.props
+        const {users, authedUser, dispatch} = this.props
         const {optionOne, optionTwo} = this.state
+        
         dispatch(handleAddQuestion({
-            authedUser, 
-            optionOne, 
-            optionTwo
+            authedUser,
+            optionOne,
+            optionTwo,
+            user: users[authedUser]
         }))
 
         this.setState(() => ({
             optionOne: '',
             optionTwo: '',
+            submitted: true
         }))
     }
     
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
+                {this.state.submitted && (<Redirect to='/' />)}
                 <h3>Would you rather...</h3>
                 <br></br>
                 <div>
@@ -70,7 +75,7 @@ class NewQuestion extends Component {
     }
 }
 
-const mapStateToProps = ({users, questions, authedUser }) => ({
+const mapStateToProps = ({users, questions, authedUser}) => ({
     users, 
     questions, 
     authedUser

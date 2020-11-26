@@ -2,15 +2,16 @@ import { saveQuestionAnswer, saveQuestion } from '../API'
 export const ANSWER_POLL = 'ANSWER_POLL'
 export const ADD_QUESTION = 'ADD_QUESTION'
 
-const savePollAnswer = (question) => ({
+const savePollAnswer = (question, userUpdate) => ({
     type: ANSWER_POLL,
-    question
+    question,
+    userUpdate
 })
 
-export const handlePollVote = (info) => dispatch => {
+export const handlePollVote = info => dispatch => {
   saveQuestionAnswer(info)
       .then(() => {
-        const {questions, qid, authedUser, answer} = info
+        const {questions, qid, authedUser, answer, user} = info
         const question = {
           ...questions,
           [qid]: {
@@ -21,7 +22,17 @@ export const handlePollVote = (info) => dispatch => {
             }
           }
         }
-        dispatch(savePollAnswer(question))
+        const userUpdate = {
+          [authedUser]: {
+            ...user,
+            answers: {
+              ...user.answers,
+              [qid]: answer
+            }
+          }
+        }
+
+        dispatch(savePollAnswer(question, userUpdate))
       })
       .catch(err => {
         console.log('Error voting: ', err)
@@ -29,16 +40,17 @@ export const handlePollVote = (info) => dispatch => {
       })
 }
 
-const addQuestion = (newQuestion) => ({
+const addQuestion = (newQuestion, userUpdate) => ({
   type: ADD_QUESTION,
   newQuestion,
+  userUpdate
 })
 
-export const handleAddQuestion = ({authedUser, optionOne, optionTwo}) => dispatch => {
+export const handleAddQuestion = ({authedUser, optionOne, optionTwo, user}) => dispatch => {
   saveQuestion({
     author: authedUser, 
-    optionOne,
-    optionTwo
+    optionOneText: optionOne,
+    optionTwoText: optionTwo
   })
   .then(question => {
     const qid = question.id 
@@ -47,8 +59,14 @@ export const handleAddQuestion = ({authedUser, optionOne, optionTwo}) => dispatc
         ...question
       }
     }
+    const userUpdate = {
+      [authedUser]: {
+        ...user,
+        questions: user.questions.concat([qid])
+      }
+    }
 
-    dispatch(addQuestion(newQuestion))
+    dispatch(addQuestion(newQuestion, userUpdate))
   })
   .catch(error =>{
     console.log('Error: ', error)

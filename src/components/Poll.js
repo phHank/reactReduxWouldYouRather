@@ -1,8 +1,7 @@
 import {Component} from 'react'
 import {connect} from 'react-redux'
+import {Redirect} from 'react-router-dom'
 import {handlePollVote} from '../actions/questions'
-
-const id = "8xf0y6ziyjabvozdd253nd"
 
 class Poll extends Component {
     state = {
@@ -18,14 +17,15 @@ class Poll extends Component {
     
     handleVote = (event) => {
         event.preventDefault()
-        const {authedUser, questions, dispatch} = this.props
+        const {users, authedUser, questions, dispatch} = this.props
         const vote = this.state.vote
         
         dispatch(handlePollVote({
             authedUser,
             questions, 
-            qid: id,
-            answer: vote
+            qid: this.props.match.params.qid,
+            answer: vote,
+            user: users[authedUser]
         }))
         
         this.setState(() => ({
@@ -35,7 +35,13 @@ class Poll extends Component {
     
     render() {
         const { questions, users, authedUser } = this.props 
-        const question = questions[id]
+        const question = questions[this.props.match.params.qid]
+        if (question === undefined) {
+            return (
+                <Redirect to='/404' />
+            )
+        }
+        
         const option1Votes = question.optionOne.votes.length
         const option2Votes = question.optionTwo.votes.length
         const totalVotes = option1Votes + option2Votes
@@ -79,13 +85,12 @@ class Poll extends Component {
                         : (
                         <div>
                             <h4>Would you rather...</h4>
-                            <form onChange={this.handleChange} onSubmit={this.handleVote}>
+                            <form onChange={this.handleChange} onSubmit={this.handleVote} >
                                 <label>
                                     <input 
                                     type='radio' 
                                     value='optionOne' 
-                                    name='poll' 
-                                    disabled={this.state.voted}/>
+                                    name='poll' />
                                         &nbsp;{question.optionOne.text}
                                 </label>
 
@@ -95,8 +100,7 @@ class Poll extends Component {
                                     <input 
                                     type='radio' 
                                     value='optionTwo' 
-                                    name='poll' 
-                                    disabled={this.state.voted}/>
+                                    name='poll' />
                                         &nbsp;{question.optionTwo.text}
                                 </label>
                                 

@@ -5,8 +5,7 @@ import NewQuestion from './NewQuestion'
 
 class Container extends Component {
     render() {
-        let currentPage = 'add'
-        const {users, authedUser} = this.props
+        const {users, authedUser, currentPage} = this.props
         const sortedUsers = Object.keys(users)
             .map(username => users[username])
             .sort((a,b) => (Object.keys(b.answers).length + b.questions.length) - 
@@ -39,7 +38,7 @@ class Container extends Component {
                           </div>
                       ) 
                       : (
-                        <div className='d-flex flex-wrap justify-content-center mt-5 border border-primary'>
+                        <div className='d-flex justify-content-center border border-primary m-5 p-3'>
                             <div>
                                 <h4 className='d-flex align-items-center p-5'>Add a Question:</h4>
                             </div>
@@ -51,9 +50,10 @@ class Container extends Component {
     }
 }
 
-const mapStateToProps = ({authedUser, users}) => ({
+const mapStateToProps = ({authedUser, users}, {currentPage}) => ({
     authedUser, 
     users,
+    currentPage
 })
 
 export default connect(mapStateToProps)(Container)

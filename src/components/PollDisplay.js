@@ -1,5 +1,6 @@
 import {Component} from 'react'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 
 class PollDisplay extends Component {
     state = {
@@ -42,14 +43,16 @@ class PollDisplay extends Component {
                 <ul className='d-flex justify-content-center mw-100'>
                     {sortedQuestions.map(question => (
                         <li className='btn border border-primary m-1' key={question.id}>
-                            <h6 className='d-flex justify-content-center'>Would you rather...</h6>
-                            <p>{question.optionOne.text}</p> 
-                            <p className='text-muted'>or</p> 
-                            <p>{question.optionTwo.text}</p>
-                            { question.author === authedUser 
-                              ? (<small className='text-muted'>By: &#128527; you</small>)
-                              : (<small className='text-muted'>By: {question.author}</small>)
-                            }
+                            <Link to={`/questions/${question.id}`}>
+                                <h6 className='d-flex justify-content-center'>Would you rather...</h6>
+                                <p>{question.optionOne.text}</p> 
+                                <p className='text-muted'>or</p> 
+                                <p>{question.optionTwo.text}</p>
+                                { question.author === authedUser 
+                                ? (<small className='text-muted'>By: &#128527; you</small>)
+                                : (<small className='text-muted'>By: {question.author}</small>)       
+                                }
+                            </Link>
                         </li>
                     ))}
                 </ul>
@@ -59,7 +62,7 @@ class PollDisplay extends Component {
     }
 }
 
-const mapStateToProps = ({ questions, authedUser }) => ({
+const mapStateToProps = ({ questions, authedUser}) => ({
     questions, 
     authedUser
 })
