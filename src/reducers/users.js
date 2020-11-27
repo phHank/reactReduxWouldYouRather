@@ -1,4 +1,5 @@
 import { RECEIVE_INITIAL_DATA } from '../actions/shared'
+import { ADD_USER } from '../actions/users'
 import { ADD_QUESTION, ANSWER_POLL } from '../actions/questions'
 
 const users = (state = {}, action) => {
@@ -7,6 +8,11 @@ const users = (state = {}, action) => {
             return {
                 ...state,
                 ...action.users
+            }
+        case ADD_USER:
+            return {
+                ...state,
+                ...action.addUser
             }
         case ANSWER_POLL:
             return {
