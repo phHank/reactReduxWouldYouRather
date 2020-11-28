@@ -12,7 +12,7 @@ const users = (state = {}, action) => {
         case ADD_USER:
             return {
                 ...state,
-                ...action.addUser
+                ...action.addedUser
             }
         case ANSWER_POLL:
             return {

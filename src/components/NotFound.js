@@ -1,10 +1,10 @@
-import {Link} from 'react-router-dom'
+import HomeButton from './HomeButton'
 
 const NotFound = () => {
     return(
         <div className='bg-dark text-light'>
-            <h4 className='p-5'>404: Page/Item not found.</h4>
-            <Link to='/'><h6 className='text-muted m-4 btn text-warning'>Homepage</h6></Link>
+            <h4 className='p-5'>404: Resource not found</h4>
+            <HomeButton />
         </div>
     )
 }

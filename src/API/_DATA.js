@@ -201,21 +201,19 @@ export function _saveQuestionAnswer ({ authedUser, qid, answer }) {
   })
 }
 
-export function _saveUser ({name, username, avatarUrl}) {
+export function _saveUser (newUser, username) {
   return new Promise((res, rej) => {
     setTimeout(() => {
       users = {
         ...users,
-        [username]: {
-          id: username, 
-          name: name,
-          avatarURL: avatarUrl,
-          questions: [],
-          answers: {}
-        }
+        ...newUser
       }
-      
-      res(users[username])
+
+      res({
+        [username]: {
+          ...users[username]
+        }
+        })
     }, 1000)
   })
 }

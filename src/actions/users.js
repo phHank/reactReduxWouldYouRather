@@ -1,28 +1,26 @@
-import { fetchUsers, saveUser } from '../API'
+import { saveUser } from '../API'
 
 export const ADD_USER = 'ADD_USER'
 
-const newUser = (addUser, id) => ({
+const newUser = (addedUser, username) => ({
     type: ADD_USER,
-    addUser,
-    username: id
+    addedUser,
+    username,
 })
 
-export const addNewUser = user => dispatch => {
-    saveUser(user)
-      .then(addedUser => {
-          const {name, id, avatarURL} = addedUser
-          
-          const addUser = {
-              [id]: {
-                  id,
-                  name,
-                  avatarURL,
-                  questions: [],
-                  answers: {}
-              }
-          }
+export const addNewUser = ({name, username, avatarUrl}) => dispatch => {
+    const addUser = {
+        [username]: {
+            id: username,
+            name,
+            avatarURL: avatarUrl,
+            questions: [],
+            answers: {}
+        }
+    }
     
-        dispatch(newUser(addUser, id))
+    saveUser(addUser, username)
+      .then(addedUser => {
+        dispatch(newUser(addedUser, username))
       })
 }

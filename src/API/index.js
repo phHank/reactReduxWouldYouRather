@@ -8,4 +8,4 @@ export const saveQuestion = question => API._saveQuestion(question)
 
 export const saveQuestionAnswer = info => API._saveQuestionAnswer(info)
 
-export const saveUser = user => API._saveUser(user)
+export const saveUser = (addUser, username) => API._saveUser(addUser, username)
