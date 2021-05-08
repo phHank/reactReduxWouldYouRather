@@ -1,14 +1,32 @@
 # Would You Rather Project
 
-This is the starter code for the final assessment project for Udacity's React & Redux course.
+This is the final assessment project for Udacity's React & Redux course. The project was initially seeded with starter code from here (https://github.com/udacity/reactnd-project-would-you-rather-starter)
 
-The `_DATA.js` file represents a fake database and methods that let you access the data. The only thing you need to edit in the ` _DATA.js` file is the value of `avatarURL`. Each user should have an avatar, so you’ll need to add the path to each user’s avatar.
+The app allows pseudo-authenticated users to interactivily create and vote on "2 choice questions", also known as "would you rather questions". New user accounts can also be created.
 
-Using the provided starter code, you'll build a React/Redux front end for the application. We recommend using the [Create React App](https://github.com/facebook/create-react-app) to bootstrap the project.
+React Router facilitates navigation between the views. 
+
+Hooks are used in this project as the version of React is > v16.8. 
+
+This project utilise state management, in the form of Redux. Users, their votes and scores are managed by the store which facilitates consistant information display throughout the app. 
+
+
+## Suggested Improvements:
+
+- The app is an eyesore and better styling would not go amiss.
+- The app does not have a backend and data is not persisted over sessions. Once the frontend server is shutdown, the created questions, given responses, and new users will be lost. 
+
+
+## Testing Locally
+    - Download the project files. 
+        - cd into the project's root directory
+        - `npm install`
+        - `npm start`
+
 
 ## Data
 
-There are two types of objects stored in our database:
+There are two types of objects stored in the "database" and there is some seed data vailable on startup:
 
 * Users
 * Questions
@@ -95,6 +113,6 @@ Your code will talk to the database via 4 methods:
 | qid | String | The id of the question that was answered|
 | answer | String | The option the user selected. The value should be either `"optionOne"` or `"optionTwo"`|
 
-## Contributing
+## Create React App
 
-This repository is the starter code for *all* Udacity students. Therefore, we most likely will not accept pull requests. For details, check out [CONTRIBUTING.md](https://github.com/udacity/reactnd-project-would-you-rather-starter/blob/master/CONTRIBUTING.md).
+This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).

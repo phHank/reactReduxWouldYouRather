@@ -67,7 +67,7 @@ const Poll = ({users, authedUser, questions, dispatch, match}) => {
                                     ${Math.round(option2Votes/totalVotes * 100)}% of all votes)`
                             }
                         </p>
-                        <HomeButton />
+                        <HomeButton>Home</HomeButton>
                     </div>
                     )
                     : (
